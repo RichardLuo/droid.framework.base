@@ -1,0 +1,15 @@
+* AMessage在ALooper中的生命周期
+  当有事件来的时候会构造一个新的AMessage对象，通过ALooper插入队列给某个
+  AHandler对象使用，当onMessageReceived()回调函数完成之后也就是
+  AMessage对象释放的时候。
+
+** AMessage对象的产生
+  ALooper里面的AMessage对象是通过new创建出来的，之后通过post调用送入
+  ALooper的Queue中，在进入Queue之前都是以引用的方式来传递AMessage的sp指
+  针对象（这种方式不会增加／减少引用计数），最后插到队列之前把它以赋值
+  (赋值的对象是sp<AMessage*>)的方式传给了Event对象，这时候引用计数才真
+  正地发挥作用。请参考[[file:~/msrc/droid_build_systems/try_droid_build/frameworks/base/foundation/ALooper.cpp::Event%20event%20event%20mWhenUs%20whenUs%20event%20mMessage%20msg][ALooper::post()]]的实现。
+
+** AMessage对象的消亡
+   相关的代码为[[file:~/msrc/droid_build_systems/try_droid_build/frameworks/base/foundation/ALooper.cpp::bool%20ALooper%20loop][ALooper::loop()]]；当[[file:~/msrc/droid_build_systems/try_droid_build/frameworks/base/foundation/ALooper.cpp::gLooperRoster%20deliverMessage%20event%20mMessage%20return%20true][gLooperRoster.deliverMessage()]]返回
+   时，sp指针的计数器归零，AMessage对象自动析构。
