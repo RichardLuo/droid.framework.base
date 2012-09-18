@@ -11,7 +11,8 @@ LOCAL_SRC_FILES:=               \
     AMessage.cpp                \
     AString.cpp                 \
     base64.cpp                  \
-    hexdump.cpp
+    hexdump.cpp \
+	RHandler.cpp RLooper.cpp RLooperRoster.cpp ARequest.cpp
 
 LOCAL_C_INCLUDES:= \
     frameworks/base/include/media/stagefright/foundation
