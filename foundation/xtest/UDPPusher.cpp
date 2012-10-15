@@ -109,7 +109,7 @@ bool UDPPusher::onPush() {
 
     //CHECK_EQ(n, (ssize_t)buffer->size());
     LOG_IF_RETURN_CODE(n != (ssize_t)buffer->size(), false,
-                       "ERR: while send, n:%ld buf size:%d perr:%s", n, buffer->size(), strerror(errno));
+                       "ERR: while send, n:%d buf size:%d perr:%s", n, buffer->size(), strerror(errno));
 
     uint32_t timeMs;
     if (fread(&timeMs, 1, sizeof(timeMs), mFile) < sizeof(timeMs)) {
