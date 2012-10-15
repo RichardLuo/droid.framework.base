@@ -104,7 +104,7 @@ void RLooperRoster::cancelRequest(const sp<ARequest> &req)
     ssize_t index = mHandlers.indexOfKey(req->target());
 
     if (index < 0) {
-        LOGW("failed to post message. Target handler not registered.");
+        LOGW("failed to post request. Target handler not registered.");
         return;
     }
 

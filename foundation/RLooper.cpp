@@ -153,6 +153,8 @@ void RLooper::post(const sp<ARequest> &req, int64_t delayUs) {
         whenUs = GetNowUs();
     }
 
+    // LOGFL("mRequestQueue size:%d", mRequestQueue.size());
+
     List<Request>::iterator it = mRequestQueue.begin();
     while (it != mRequestQueue.end() && (*it).mWhenUs <= whenUs) {
         ++it;
@@ -181,25 +183,13 @@ void RLooper::cancel(const sp<ARequest> &req)
     }
 
     if (it == mRequestQueue.end()) {
-        LOGE("ERR: the req is not here!");
+        LOGE("WARN: on cancel req, it's not in rlooper's queue!");
         return;
     }
 
-#if 0
-    const bool is_head = (it == mRequestQueue.begin() );
-
+    LOGW("request of [%d] has been canceled!", it->mARequest->what() );
     mRequestQueue.erase(it);
 
-    if (is_head)
-        mQueueChangedCondition.signal();
-#else
-
-    LOGW("request of what: %d been canceled!", it->mARequest->what() );
-    mRequestQueue.erase(it);
-
-#endif
-
-    
 }
 
 
