@@ -86,7 +86,7 @@ void RLooperRoster::postRequest(
     sp<RLooper> looper = info.mLooper.promote();
 
     if (looper == NULL) {
-        LOGW("failed to post message. "
+        LOGW("Failed to post message. "
              "Target handler %d still registered, but object gone.",
              req->target());
 
@@ -104,7 +104,7 @@ void RLooperRoster::cancelRequest(const sp<ARequest> &req)
     ssize_t index = mHandlers.indexOfKey(req->target());
 
     if (index < 0) {
-        LOGW("failed to post request. Target handler not registered.");
+        LOGW("Failed to cancel request. req is not registered.");
         return;
     }
 
@@ -113,8 +113,8 @@ void RLooperRoster::cancelRequest(const sp<ARequest> &req)
     sp<RLooper> looper = info.mLooper.promote();
 
     if (looper == NULL) {
-        LOGW("failed to post request. "
-             "Target handler %d still registered, but object gone.",
+        LOGW("Failed to cancel request. "
+             "Target handler %d registered, but looper has gone.",
              req->target());
 
         mHandlers.removeItemsAt(index);
