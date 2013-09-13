@@ -618,8 +618,9 @@ status_t Parcel::writeCString(const char* str)
 
 status_t Parcel::writeString8(const String8& str)
 {
-    status_t err = writeInt32(str.bytes());
-    if (err == NO_ERROR) {
+    uint32_t n = str.bytes();
+    status_t err = writeInt32(n);
+    if (err == NO_ERROR && n > 0) {
         err = write(str.string(), str.bytes()+1);
     }
     return err;
