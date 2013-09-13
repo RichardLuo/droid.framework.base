@@ -49,7 +49,7 @@ public:
 
     static char const* getServiceName() { return "HelloService"; }
 
-    void sayHello();
+    void sayHello(int32_t n);
 
 };
 

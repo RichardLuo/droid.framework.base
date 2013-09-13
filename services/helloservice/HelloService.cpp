@@ -99,9 +99,9 @@ HelloService::~HelloService()
 {
 }
 
-void HelloService::sayHello()
+void HelloService::sayHello(int32_t n)
 {
-    LOGE("in HelloService::sayHello!!");
+    LOGE("HelloService::sayHello, n:%d", n);
 }
 
 

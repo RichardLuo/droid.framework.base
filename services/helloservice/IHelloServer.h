@@ -27,24 +27,26 @@
 
 namespace android {
 
-class IHelloServer : public IInterface
-{
-public:
+class IHelloServer : public IInterface {
+
+  public:
 
     DECLARE_META_INTERFACE(HelloServer);
 
-    virtual void sayHello () = 0;
+    virtual void sayHello(int32_t n) = 0;
+    
 };
 
 // ----------------------------------------------------------------------------
 
-class BnHelloServer : public BnInterface<IHelloServer>
-{
-public:
-    virtual status_t    onTransact( uint32_t code,
-                                    const Parcel& data,
-                                    Parcel* reply,
-                                    uint32_t flags = 0);
+class BnHelloServer : public BnInterface<IHelloServer> {
+
+  public:
+
+    virtual status_t onTransact(uint32_t code,
+                                const Parcel& data,
+                                Parcel* reply,
+                                uint32_t flags = 0);
 };
 
 // ----------------------------------------------------------------------------

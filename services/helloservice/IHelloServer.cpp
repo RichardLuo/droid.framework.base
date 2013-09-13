@@ -28,18 +28,18 @@ enum {
     SAY_HELLO = IBinder::FIRST_CALL_TRANSACTION
 };
 
-class BpHelloServer : public BpInterface<IHelloServer>
-{
-public:
+class BpHelloServer : public BpInterface<IHelloServer> {
+
+  public:
+
     BpHelloServer(const sp<IBinder>& impl)
-        : BpInterface<IHelloServer>(impl)
-    {
+            : BpInterface<IHelloServer>(impl) {
     }
 
-    virtual void sayHello()
-    {
+    virtual void sayHello(int32_t n) {
         Parcel data, reply;
         data.writeInterfaceToken(IHelloServer::getInterfaceDescriptor());
+        data.writeInt32(n);
         remote()->transact(SAY_HELLO, data, &reply);
     }
 
@@ -48,21 +48,19 @@ public:
 IMPLEMENT_META_INTERFACE(HelloServer, "android.gui.HelloServer");
 
 status_t BnHelloServer::onTransact(
-    uint32_t code, const Parcel& data, Parcel* reply, uint32_t flags)
-{
+    uint32_t code, const Parcel& data, Parcel* reply, uint32_t flags) {
     switch(code) {
-    case SAY_HELLO:
-        CHECK_INTERFACE(IHelloServer, data, reply);
-        LOGD("before call sayHello!");
-        this->sayHello();
-        // Vector<Hello> v(getHelloList());
-        // size_t n = v.size();
-        // reply->writeInt32(n);
-        // for (size_t i=0 ; i<n ; i++) {
-        //     reply->write(static_cast<const Flattenable&>(v[i]));
-        // }
-        return NO_ERROR;
-        break;
+        case SAY_HELLO:
+            CHECK_INTERFACE(IHelloServer, data, reply);
+            int32_t n = data.readInt32();
+            this->sayHello(n);
+            // Vector<Hello> v(getHelloList());
+            // size_t n = v.size();
+            // reply->writeInt32(n);
+            // for (size_t i=0 ; i<n ; i++) {
+            //     reply->write(static_cast<const Flattenable&>(v[i]));
+            // }
+            return NO_ERROR;
     }
     
     return BBinder::onTransact(code, data, reply, flags);

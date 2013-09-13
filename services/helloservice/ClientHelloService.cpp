@@ -36,9 +36,10 @@ int main(int argc, char *argv[])
 	LOGI("Hello client is now trying");
 
     shw = interface_cast<IHelloServer>(binder);
-    shw->sayHello();
-	
+    for (int32_t i = 0; i < 10; ++i) {
+        shw->sayHello(i);
+    }
 	LOGI("Hello client is now exiting");
 
-	return(0);
+	return 0;
 }
