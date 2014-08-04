@@ -1,8 +1,8 @@
+ifneq ($(TARGET_SIMULATOR),true)
+
 # Build the unit tests.
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
-
-ifneq ($(TARGET_SIMULATOR),true)
 
 # Build the unit tests.
 test_src_files := \
@@ -41,5 +41,13 @@ $(foreach file,$(test_src_files), \
     $(eval LOCAL_MODULE_TAGS := $(module_tags)) \
     $(eval include $(BUILD_EXECUTABLE)) \
 )
+
+ifneq ($(TARGET_SIMULATOR),true)
+LOCAL_C_INCLUDES += bionic		# very important!
+LOCAL_C_INCLUDES += external/stlport/stlport 
+LOCAL_SHARED_LIBRARIES += libstlport libdl
+endif
+
+LOCAL_CFLAGS += -nostdinc
 
 endif
