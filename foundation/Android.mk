@@ -12,6 +12,7 @@ LOCAL_SRC_FILES:=               \
     AString.cpp                 \
     base64.cpp                  \
     hexdump.cpp \
+	XMessage.cpp \
 	RHandler.cpp RLooper.cpp RLooperRoster.cpp ARequest.cpp
 
 LOCAL_C_INCLUDES:= \
