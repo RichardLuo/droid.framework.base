@@ -50,6 +50,7 @@ struct XMessage : public RefBase {
     void setFloat(const char *name, float value);
     void setDouble(const char *name, double value);
     void setPointer(const char *name, void *value);
+    void setString8(const char *name, const String8 &str);
     void setString(const char *name, const char *s, ssize_t len = -1);
     void setObject(const char *name, const sp<RefBase> &obj);
     void setMessage(const char *name, const sp<XMessage> &obj);

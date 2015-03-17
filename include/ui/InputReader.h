@@ -231,7 +231,7 @@ public:
 protected:
     // These methods are protected virtual so they can be overridden and instrumented
     // by test cases.
-    virtual InputDevice* createDevice(int32_t deviceId, const String8& name, uint32_t classes);
+    virtual InputDevice* createEntity(int32_t deviceId, const String8& name, uint32_t classes);
 
 private:
     sp<EventHubInterface> mEventHub;

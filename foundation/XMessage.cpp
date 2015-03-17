@@ -147,6 +147,10 @@ void XMessage::setString(
     item->u.stringValue = new AString(s, len < 0 ? strlen(s) : len);
 }
 
+void XMessage::setString8(const char *name, const String8 &str) {
+    setString(name, str.string());
+}
+
 void XMessage::setObject(const char *name, const sp<RefBase> &obj) {
     Item *item = allocateItem(name);
     item->mType = kTypeObject;
