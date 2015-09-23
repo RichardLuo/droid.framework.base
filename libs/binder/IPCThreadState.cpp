@@ -44,6 +44,7 @@
 #include <windows.h>
 #endif
 
+#define LOG_NDEBUG 1
 
 #if LOG_NDEBUG
 
