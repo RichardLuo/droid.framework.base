@@ -34,15 +34,31 @@ template<typename SERVICE>
 class BinderService
 {
 public:
-    static status_t publish() {
+
+    static status_t publish(SERVICE *service = NULL) {
         sp<IServiceManager> sm(defaultServiceManager());
-        return sm->addService(String16(SERVICE::getServiceName()), new SERVICE());
+        if (service == NULL) {
+            service = new SERVICE();
+        }
+        return sm->addService(String16(SERVICE::getServiceName()), service);
     }
 
-    static void publishAndJoinThreadPool() {
+    static void publishAndJoinThreadPool(SERVICE *service = NULL) {
         sp<ProcessState> proc(ProcessState::self());
         sp<IServiceManager> sm(defaultServiceManager());
-        sm->addService(String16(SERVICE::getServiceName()), new SERVICE());
+        if (service == NULL) {
+            service = new SERVICE();
+        }
+        sm->addService(String16(SERVICE::getServiceName()), service);
+        ProcessState::self()->startThreadPool();
+        IPCThreadState::self()->joinThreadPool();
+    }
+
+    static void publishAndJoinThreadPoolEx(const char *postfix = NULL) {
+        SERVICE *service = new SERVICE(postfix);
+        sp<ProcessState> proc(ProcessState::self());
+        sp<IServiceManager> sm(defaultServiceManager());
+        sm->addService(String16(service->getName()), service);
         ProcessState::self()->startThreadPool();
         IPCThreadState::self()->joinThreadPool();
     }
