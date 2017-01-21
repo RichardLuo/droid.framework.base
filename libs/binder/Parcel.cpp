@@ -1088,8 +1088,8 @@ const flat_binder_object* Parcel::readObject(bool nullMetaData) const
             }
             if (OBJS[opos] == DPOS) {
                 // Found it!
-                LOGV("Parcel found obj %d at index %d with forward search",
-                     this, DPOS, opos);
+                LOGV("Parcel found obj %p at index %d with forward search",
+                     this, DPOS);
                 mNextObjectHint = opos+1;
                 LOGV("readObject Setting data pos of %p to %d\n", this, mDataPos);
                 return obj;
@@ -1101,8 +1101,8 @@ const flat_binder_object* Parcel::readObject(bool nullMetaData) const
             }
             if (OBJS[opos] == DPOS) {
                 // Found it!
-                LOGV("Parcel found obj %d at index %d with backward search",
-                     this, DPOS, opos);
+                LOGV("Parcel found obj %p at index %d with backward search",
+                     this, DPOS);
                 mNextObjectHint = opos+1;
                 LOGV("readObject Setting data pos of %p to %d\n", this, mDataPos);
                 return obj;
